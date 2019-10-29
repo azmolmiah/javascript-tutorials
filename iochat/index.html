@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    />
+    <title>Socket Chat</title>
+    <style>
+      body {
+        margin-top: 30px;
+      }
+      #audio {
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <audio id="audio" controls>Start Stream</audio>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      (() => {
+        let socket = io.connect();
+        const startStream = document.getElementById('audio');
+        const audioObj = new Audio();
+
+        navigator.mediaDevices
+          .getUserMedia({ video: false, audio: true })
+          .then(stream => {
+            //Link to the video source
+            audio.srcObject = stream;
+
+            audio.addEventListener('playing', e => {
+              socket.emit('current socket', { audio: 'Current Audio' });
+            });
+          })
+          .catch(err => console.log(err));
+
+        // socket.on('new audio', data => {
+        //   audio.append(
+        //     `<audio src="${audio.srcObject}" id="audioTwo" autoplay></audio>`
+        //   );
+        // });
+
+        // //New user request to socket
+        // userForm.addEventListener('submit', e => {
+        //   e.preventDefault();
+        //   socket.emit('new user', userName.value, data => {
+        //     if (data) {
+        //       $userFormArea.hide();
+        //       $messageArea.show();
+        //     } else {
+        //       $messageArea.hide();
+        //     }
+        //   });
+        //   $username.val('');
+        // });
+
+        // // Get users
+        // socket.on('get users', data => {
+        //   let html = '';
+        //   for (i = 0; i < data.length; i++) {
+        //     html += `<li class='list-group-item'>${data[i]}</li>`;
+        //   }
+        //   $users.html(html);
+        // });
+      })();
+    </script>
+  </body>
+</html>

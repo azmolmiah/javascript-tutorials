@@ -1,0 +1,15 @@
+{
+  "name": "iochat",
+  "version": "1.0.0",
+  "description": "Simpla chat app",
+  "main": "sever.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Azmol",
+  "license": "ISC",
+  "dependencies": {
+    "socket.io": "*",
+    "express": "*"
+  }
+}
